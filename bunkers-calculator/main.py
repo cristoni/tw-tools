@@ -4,6 +4,7 @@ import requests
 import pandas as pd
 
 pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', 500)
 
 SERVER = "en133"
 OUR_TRIBE = "D-ROW"
@@ -71,13 +72,13 @@ def main():
 
   # add distance column equal to ipotenusa, where the catets are the difference between x and x_enemy and y and y_enemy
   df_our_tribe = df_our_tribe.assign(distance=lambda x: sqrt((x.x - x.x_enemy)**2 + (x.y - x.y_enemy)**2))
-  df_our_tribe = scaling_min_max_normalization(df_our_tribe, ['distance', 'points_enemy', 'points_player_enemy'])
-  df_our_tribe["score"] = (1 - df_our_tribe["distance"]) * 0.6 + df_our_tribe["points_enemy"] * 0.3 + df_our_tribe["points_player_enemy"] * 0.1
+  df_our_tribe = scaling_min_max_normalization(df_our_tribe, ['distance', 'points', 'points_enemy', 'points_player_enemy'])
+  df_our_tribe["score"] = (1 - df_our_tribe["distance"]) * 0.5 + df_our_tribe["points"] * 0.15 + df_our_tribe["points_enemy"] * 0.25 + df_our_tribe["points_player_enemy"] * 0.1
   df_our_tribe["coords"] = df_our_tribe["x"].astype(str) + "|" + df_our_tribe["y"].astype(str)
 
 
   result = df_our_tribe.groupby(['coords', 'name', 'name_player']).aggregate({'score': 'sum'}).sort_values(by=['score'], ascending=False)
-  print(result.head(100))
+  print(result.head(30))
 
 if __name__ == "__main__":
     main()
