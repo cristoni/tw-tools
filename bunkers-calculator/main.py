@@ -1,14 +1,19 @@
+import os
 import gzip
 from numpy import sqrt
 import requests
 import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv()
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', 500)
 
-SERVER = "en133"
-OUR_TRIBE = "D-ROW"
-ENEMY_TRIBE = "AFK"
+SERVER = os.getenv("SERVER")
+WORLD = os.getenv("WORLD")
+OUR_TRIBE = os.getenv("OUR_TRIBE")
+ENEMY_TRIBE = os.getenv("ENEMY_TRIBE")
 
 def scaling_min_max_normalization(df, columns):
   for column in columns:
@@ -35,17 +40,17 @@ def get_file(url):
   return out_filename
 
 def get_villages_file():
-  url = "http://" + SERVER + ".tribalwars.net/map/village.txt.gz"
+  url = "http://" + WORLD + "." + SERVER + "/map/village.txt.gz"
 
   return get_file(url)
 
 def get_players_file():
-  url = "http://" + SERVER + ".tribalwars.net/map/player.txt.gz"
+  url = "http://" + WORLD + "." + SERVER + "/map/player.txt.gz"
 
   return get_file(url)
 
 def get_tribes_file():
-  url = "http://" + SERVER + ".tribalwars.net/map/ally.txt.gz"
+  url = "http://" + WORLD + "." + SERVER + "/map/ally.txt.gz"
 
   return get_file(url)
 

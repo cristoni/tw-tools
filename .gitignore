@@ -1,1 +1,8 @@
 bunkers-calculator/data
+bunkers-calculator/.env
+
+# Environments
+.env
+.venv
+env/
+venv/
