@@ -13,7 +13,7 @@ ENEMY_TRIBE=Indian
 
 Once that's done, you just have to run it.
 ```
-py .\bunkers-calculator\main.p
+py .\bunkers-calculator\main.py
 ```
 It will download the list of tribes, players and villages and start computing.
 
