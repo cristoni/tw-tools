@@ -82,7 +82,7 @@ def main():
   df_our_tribe["coords"] = df_our_tribe["x"].astype(str) + "|" + df_our_tribe["y"].astype(str)
 
 
-  result = df_our_tribe.groupby(['coords', 'name', 'name_player']).aggregate({'score': 'sum'}).sort_values(by=['score'], ascending=False)
+  result = df_our_tribe.groupby(['coords', 'name_player']).aggregate({'score': 'sum'}).sort_values(by=['score'], ascending=False)
   print(result.head(30))
 
 if __name__ == "__main__":
